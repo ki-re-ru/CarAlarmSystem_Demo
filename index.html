@@ -1,1 +1,82 @@
-<h1>Car Alarm System</h1>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="style.css"/>
+
+    <title>Start Page</title>
+</head>
+
+
+<body>
+
+<div id="whole">
+
+    <main>
+        <article aria-labelledby="artStartPage">
+            <header>
+                <h1 id="artStartPageHeading">Start Page</h1>
+                <h2>AALPY Selenium Test Website</h2>
+            </header>
+
+
+            <section id="secButtons" aria-labelledby="secButtonsHeading">
+                <h2 id="secButtonsHeading">1 Buttons</h2>
+
+                <a href="https://example.com/">
+                    <button class="hyperlink button" type="button">
+                        Go to example website
+                    </button>
+                </a>
+                <br>
+                <button class="nothing button" type="button">Do nothing</button>
+                <br>
+                <a href="page1.html">
+                    <button class="P1button" type="button">
+                        Go to page 1
+                    </button>
+                </a>
+                <br>
+                <br>
+                <button id="togglePage2Button" onclick="toggleP2Button()">Toggle P2 Button</button>
+                <p id="P2buttonState">Is Page 2 Button active: <span id="P2activeValue">false</span></p>
+                <a href="page2.html">
+                    <button id="P2Button" disabled>
+                        Go to page 2
+                    </button>
+                </a>
+                <script>
+                    let P2activeValue = false;
+                    function toggleP2Button() {
+                        P2activeValue = !P2activeValue;
+                        document.getElementById("P2activeValue").innerText = P2activeValue.toString();
+                        const P2Button = document.getElementById("P2Button");
+                        P2Button.disabled = !P2Button.disabled;
+                    }
+                </script>
+
+            </section>
+
+
+            <section id="secHyperlinks" aria-labelledby="secHyperlinksHeading">
+                <h2 id="secHyperlinksHeading">2 Hyperlinks</h2>
+
+                <a href="https://example.com/">
+                    https://example.com/
+                </a>
+
+            </section>
+
+
+        </article>
+    </main>
+
+
+</div>  <!-- whole -->
+
+</body>
+</html>
+
