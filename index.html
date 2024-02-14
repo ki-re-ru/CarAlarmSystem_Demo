@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="style.css"/>
 
-    <title>Start Page</title>
+    <title>0000</title>
 </head>
 
 
@@ -18,64 +18,295 @@
     <main>
         <article aria-labelledby="artStartPage">
             <header>
-                <h1 id="artStartPageHeading">Start Page</h1>
-                <h2>AALPY Selenium Test Website</h2>
+                <h1 id="artStartPageHeading">Car Alarm System</h1>
             </header>
 
 
-            <section id="secButtons" aria-labelledby="secButtonsHeading">
-                <h2 id="secButtonsHeading">1 Buttons</h2>
+            <section id="secActions" aria-labelledby="secActionsHeading">
+                <h2 id="secActionsHeading">Actions</h2>
 
-                <a href="https://example.com/">
-                    <button class="hyperlink button" type="button">
-                        Go to example website
-                    </button>
-                </a>
+                <!-- front_right_door = 0b1000
+                     front_left_door =  0b0100
+                     back_right_door =  0b0010
+                     back_left_door =   0b0001-->
+                <door_button class="button" type="button" data-door=0b1000 data-text_open="Open front right door" data-text_close="Close front right door">
+                    front_right_door
+                </door_button>
                 <br>
-                <button class="nothing button" type="button">Do nothing</button>
+
+                <door_button class="button" type="button" data-door=0b0100 data-text_open="Open front left door" data-text_close="Close front left door">
+                    front_left_door
+                </door_button>
                 <br>
-                <a href="page1.html">
-                    <button class="P1button" type="button">
-                        Go to page 1
-                    </button>
-                </a>
+
+                <door_button class="button" type="button" data-door=0b0010 data-text_open="Open back right door" data-text_close="Close back right door">
+                    back_right_door
+                </door_button>
                 <br>
+
+                <door_button class="button" type="button" data-door=0b0001 data-text_open="Open back left door" data-text_close="Close back left door">
+                    back_left_door
+                </door_button>
                 <br>
-                <button id="togglePage2Button" onclick="toggleP2Button()">Toggle P2 Button</button>
-                <p id="P2buttonState">Is Page 2 Button active: <span id="P2activeValue">false</span></p>
-                <a href="page2.html">
-                    <button id="P2Button" disabled>
-                        Go to page 2
-                    </button>
-                </a>
-                <script>
-                    let P2activeValue = false;
-                    function toggleP2Button() {
-                        P2activeValue = !P2activeValue;
-                        document.getElementById("P2activeValue").innerText = P2activeValue.toString();
-                        const P2Button = document.getElementById("P2Button");
-                        P2Button.disabled = !P2Button.disabled;
+
+                <lock_button class="button" type="button" data-text_lock="Lock car" data-text_unlock="Unlock car">
+                    Lock/Unlock
+                </lock_button>
+                <br>
+
+                <tick_button class="button" type="button" data_text="Tick 10">
+                    Tick 10
+                </tick_button>
+                <br>
+            </section>
+
+            <section id="secTimers" aria-labelledby="secTimersHeading">
+                <h2 id="secTimersHeading">Timers</h2>
+                <p id="time">Total time: <span id="total_time">0</span></p>
+                <p id="timer_armed">Timer Armed: <span id="timer_armed_value">0</span></p>
+                <p id="timer_alarm">Timer Alarm: <span id="timer_alarm_value">0</span></p>
+            </section>
+
+            <section id="secState" aria-labelledby="secStateHeading">
+                <h2 id="secStateHeading">State</h2>
+                <p id="closed">Closed: <span id="closed_value">true</span></p>
+                <p id="locked">Locked: <span id="locked_value">false</span></p>
+                <p id="armed">Armed: <span id="armed_value">false</span></p>
+                <p id="alarm">Alarm: <span id="alarm_value">false</span></p>
+                <p id="sound">Sound: <span id="sound_value">false</span></p>
+                <p id="flash">Flash: <span id="flash_value">false</span></p>
+            </section>
+
+            <script>
+                const TIME_UNTIL_ARMED = 20;
+                const TIME_UNTIL_SOUND_OFF = 30;
+                const TIME_UNTIL_ALARM_OFF = 300;
+
+                let buttons = document.getElementsByClassName("button")
+
+                // STATE
+                let currently_open = 0b0000;
+                let locked = false;
+                let armed = false;
+                let alarm = false;
+                let sound = false;
+                let flash = false;
+                let total_time = 0;
+                let timer_armed = 0;
+                let timer_alarm = 0;
+
+                function useDoor(event)
+                {
+                    currently_open = currently_open ^ event.target.dataset.door;
+                    setDoorButtonText(event.target)
+
+                    if(armed && !sound && !flash)
+                    {
+                        armed = false;
+                        alarm = true;
+                        flash = true;
+                        sound = true;
+                        timer_alarm = 0;
+                        document.getElementById("timer_alarm_value").innerText = timer_alarm.toString();
                     }
-                </script>
+                }
 
-            </section>
+                function toggleLock(event)
+                {
+                    locked = !locked;
+                    setLockButtonText(event.target)
+
+                    if(!locked)
+                    {
+                        armed = false;
+                        alarm = false;
+                        sound = false;
+                        flash = false;
+                        timer_alarm = 0;
+                        document.getElementById("timer_alarm_value").innerText = timer_alarm.toString();
+                    }
+                }
+
+                function tick(tick=10)
+                {
+                    total_time += tick;
+                    document.getElementById("total_time").innerText = total_time.toString();
+
+                    if(!armed && locked && !currently_open)
+                    {
+                        timer_armed += tick;
+                        document.getElementById("timer_armed_value").innerText = timer_armed.toString();
+                    }
+
+                    if(sound || flash)
+                    {
+                        timer_alarm += tick;
+                        document.getElementById("timer_alarm_value").innerText = timer_alarm.toString();
+                    }
+
+                }
+
+                function checkTimers()
+                {
+                    if(!locked || currently_open)
+                    {
+                        timer_armed = 0;
+                        document.getElementById("timer_armed_value").innerText = timer_armed.toString();
+                    }
+
+                    if(!armed && timer_armed >= TIME_UNTIL_ARMED)
+                    {
+                        armed = true;
+                        timer_armed = 0;
+                        document.getElementById("timer_armed_value").innerText = ">=" + TIME_UNTIL_ARMED.toString();
+                    }
+
+                    if(sound && timer_alarm >= TIME_UNTIL_SOUND_OFF)
+                    {
+                        sound = false;
+                    }
+
+                    if(flash && timer_alarm >= TIME_UNTIL_ALARM_OFF)
+                    {
+                        flash = false;
+                        timer_alarm = 0;
+                        document.getElementById("timer_alarm_value").innerText = ">=" + TIME_UNTIL_ALARM_OFF.toString();
+                    }
 
 
-            <section id="secHyperlinks" aria-labelledby="secHyperlinksHeading">
-                <h2 id="secHyperlinksHeading">2 Hyperlinks</h2>
+                }
 
-                <a href="https://example.com/">
-                    https://example.com/
-                </a>
+                function updateStateDisplay()
+                {
+                    if(!currently_open)
+                    {
+                        document.getElementById("closed_value").innerText = true.toString();
+                    }
+                    else
+                    {
+                        document.getElementById("closed_value").innerText = false.toString();
+                    }
 
-            </section>
+                    if(locked)
+                    {
+                        document.getElementById("locked_value").innerText = true.toString();
+                    }
+                    else
+                    {
+                        document.getElementById("locked_value").innerText = false.toString();
+                    }
 
+                    if(armed)
+                    {
+                        document.getElementById("armed_value").innerText = true.toString();
+                    }
+                    else
+                    {
+                        document.getElementById("armed_value").innerText = false.toString();
+                    }
+
+                    if(alarm)
+                    {
+                        document.getElementById("alarm_value").innerText = true.toString();
+                    }
+                    else
+                    {
+                        document.getElementById("alarm_value").innerText = false.toString();
+                    }
+
+                    if(sound)
+                    {
+                        document.getElementById("sound_value").innerText = true.toString();
+                    }
+                    else
+                    {
+                        document.getElementById("sound_value").innerText = false.toString();
+                    }
+
+                    if(flash)
+                    {
+                        document.getElementById("flash_value").innerText = true.toString();
+                    }
+                    else
+                    {
+                        document.getElementById("flash_value").innerText = false.toString();
+                    }
+
+                }
+
+                <!--STEP-->
+                function handleButtonClick(event)
+                {
+                    if(event.target.matches("door_button"))
+                    {
+                        useDoor(event);
+                    }
+                    else if(event.target.matches("lock_button"))
+                    {
+                        toggleLock(event);
+                    }
+                    else
+                    {
+                        tick();
+                    }
+
+                    checkTimers();
+                    updateStateDisplay();
+                }
+
+                function setDoorButtonText(button)
+                {
+                    const is_door_open = currently_open & button.dataset.door;
+
+                    if(is_door_open)
+                    {
+                        button.textContent = button.dataset.text_close;
+                    }
+                    else
+                    {
+                        button.textContent = button.dataset.text_open;
+                    }
+                }
+
+                function setLockButtonText(button)
+                {
+                    if(locked)
+                    {
+                        button.textContent = button.dataset.text_unlock;
+                    }
+                    else
+                    {
+                        button.textContent = button.dataset.text_lock;
+                    }
+                }
+
+                function setButtonText(button)
+                {
+                    if(button.matches("door_button"))
+                    {
+                        setDoorButtonText(button);
+                    }
+                    else if(button.matches("lock_button"))
+                    {
+                        setLockButtonText(button)
+                    }
+                }
+
+                for (let i =0; i < buttons.length; i++)
+                {
+                    setButtonText(buttons[i]);
+                    buttons[i].addEventListener("click", handleButtonClick);
+                    checkTimers();
+                    updateStateDisplay();
+                }
+
+            </script>
 
         </article>
     </main>
 
 
-</div>  <!-- whole -->
+</div>
 
 </body>
 </html>

@@ -53,7 +53,54 @@ big {font-size: 1em}
 blockquote {margin: 2em 5%}
 
 
-button {cursor: auto}
+door_button {
+  display: inline-block;
+  width: 200px; /* Set the desired width */
+  height: 40px; /* Set the desired height */
+  text-align: left;
+  padding-left: 10px;
+  line-height: 40px; /* Center the text vertically */
+  background-color: rgba(35, 107, 122, 0.79);
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px; /* Add margin for spacing between buttons */
+}
+
+lock_button {
+  display: inline-block;
+  width: 200px; /* Set the desired width */
+  height: 40px; /* Set the desired height */
+  text-align: left;
+  padding-left: 10px;
+  line-height: 40px; /* Center the text vertically */
+  background-color: rgba(210, 54, 54, 0.79);
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px; /* Add margin for spacing between buttons */
+}
+
+tick_button {
+  display: inline-block;
+  width: 200px; /* Set the desired width */
+  height: 40px; /* Set the desired height */
+  text-align: left;
+  padding-left: 10px;
+  line-height: 40px; /* Center the text vertically */
+  background-color: rgba(115, 150, 33, 0.79);
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px; /* Add margin for spacing between buttons */
+}
+
 
 
 caption {
@@ -227,12 +274,10 @@ ul ul ul ul {
 p {
   margin: 0 0 1em 0;
   padding: 0;
-  text-align: justify;
+  text-align: left;
 }
 
-p + p {  /* indent first line of each para 2..n  */
-  text-indent: 1em;
-}
+
 
 p.instructions + p {  /* do not indent first line of each para 2..n  */
   text-indent: 0;
