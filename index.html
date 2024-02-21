@@ -19,7 +19,7 @@
     <main>
         <article aria-labelledby="artStartPage">
             <header>
-                <h1 id="artStartPageHeading">Car Alarm System</h1>
+                <h1 id="artStartPageHeading">Car Alarm System - Normal</h1>
             </header>
 
 
@@ -30,7 +30,7 @@
             <div class="grid-container">
                 <div class="grid-item">
 
-                    <p id="time">Total time: <span id="total_time">0</span></p>
+                    <p id="time">Total Time: <span id="total_time">0</span></p>
                     <p id="timer_armed">Timer Armed: <span id="timer_armed_value">0</span></p>
                     <p id="timer_alarm">Timer Alarm: <span id="timer_alarm_value">0</span></p>
 
@@ -66,24 +66,16 @@
 
 
                 <div class="grid-item">
-
-                    <img src="img/locked.png" alt="Locked Status" >
-
+                    <img src="img/locked.png" alt="Locked Status">
                     <img src="img/armed.png" alt="Armed Status">
-
                     <img src="img/sound.png" alt="Sound Status">
-
                     <img src="img/flash.png" alt="Flash Status">
                 </div>
-
-
 
             </div>
 
 
-
-
-            <section id="secState" aria-labelledby="secStateHeading">
+            <section id="secState" aria-labelledby="secStateHeading" style="visibility: hidden;">
                 <h2 id="secStateHeading">State</h2>
                 <p id="closed">Closed: <span id="closed_value">true</span></p>
                 <p id="locked">Locked: <span id="locked_value">false</span></p>
@@ -92,6 +84,7 @@
                 <p id="sound">Sound: <span id="sound_value">false</span></p>
                 <p id="flash">Flash: <span id="flash_value">false</span></p>
             </section>
+
         </article>
     </main>
 

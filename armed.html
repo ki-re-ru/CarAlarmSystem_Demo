@@ -22,52 +22,55 @@
                 <h1 id="artStartPageHeading">Car Alarm System - Armed</h1>
             </header>
 
-            <section id="secActions" aria-labelledby="secActionsHeading">
-                <h2 id="secActionsHeading">Actions</h2>
+            <!-- front_right_door = 0b1000
+                 front_left_door =  0b0100
+                 back_right_door =  0b0010
+                 back_left_door =   0b0001-->
+            <div class="grid-container">
+                <div class="grid-item">
 
-                <!-- front_right_door = 0b1000
-                     front_left_door =  0b0100
-                     back_right_door =  0b0010
-                     back_left_door =   0b0001-->
-                <door_button class="button" type="button" data-door=0b1000 data-text_open="Open front right door" data-text_close="Close front right door">
-                    front_right_door
-                </door_button>
-                <br>
+                    <p id="time">Total Time: <span id="total_time">0</span></p>
+                    <p id="timer_armed">Timer Armed: <span id="timer_armed_value">0</span></p>
+                    <p id="timer_alarm">Timer Alarm: <span id="timer_alarm_value">0</span></p>
 
-                <door_button class="button" type="button" data-door=0b0100 data-text_open="Open front left door" data-text_close="Close front left door">
-                    front_left_door
-                </door_button>
-                <br>
+                    <door_button class="button" type="button" data-door=0b1000 data-text_open="Open front right door" data-text_close="Close front right door">
+                        front_right_door
+                    </door_button>
 
-                <door_button class="button" type="button" data-door=0b0010 data-text_open="Open back right door" data-text_close="Close back right door">
-                    back_right_door
-                </door_button>
-                <br>
+                    <door_button class="button" type="button" data-door=0b0100 data-text_open="Open front left door" data-text_close="Close front left door">
+                        front_left_door
+                    </door_button>
 
-                <door_button class="button" type="button" data-door=0b0001 data-text_open="Open back left door" data-text_close="Close back left door">
-                    back_left_door
-                </door_button>
-                <br>
+                    <door_button class="button" type="button" data-door=0b0010 data-text_open="Open back right door" data-text_close="Close back right door">
+                        back_right_door
+                    </door_button>
 
-                <lock_button class="button" type="button" data-text_lock="Lock car" data-text_unlock="Unlock car">
-                    Lock/Unlock
-                </lock_button>
-                <br>
+                    <door_button class="button" type="button" data-door=0b0001 data-text_open="Open back left door" data-text_close="Close back left door">
+                        back_left_door
+                    </door_button>
 
-                <tick_button class="button" type="button" data_text="Tick 10">
-                    Tick 10
-                </tick_button>
-                <br>
-            </section>
+                    <lock_button class="button" type="button" data-text_lock="Lock car" data-text_unlock="Unlock car">
+                        Lock/Unlock
+                    </lock_button>
 
-            <section id="secTimers" aria-labelledby="secTimersHeading">
-                <h2 id="secTimersHeading">Timers</h2>
-                <p id="time">Total time: <span id="total_time">0</span></p>
-                <p id="timer_armed">Timer Armed: <span id="timer_armed_value">0</span></p>
-                <p id="timer_alarm">Timer Alarm: <span id="timer_alarm_value">0</span></p>
-            </section>
+                    <tick_button class="button" type="button" data_text="Tick 10">
+                        Tick 10
+                    </tick_button>
+                </div>
 
-            <section id="secState" aria-labelledby="secStateHeading">
+                <div class="grid-item">
+                    <img src="img/0000.png" alt="Door Status">
+                </div>
+
+                <div class="grid-item">
+                    <img src="img/locked.png" alt="Locked Status" >
+                    <img src="img/armed.png" alt="Armed Status">
+                    <img src="img/sound.png" alt="Sound Status">
+                    <img src="img/flash.png" alt="Flash Status">
+                </div>
+            </div>
+
+            <section id="secState" aria-labelledby="secStateHeading" style="visibility: hidden;">
                 <h2 id="secStateHeading">State</h2>
                 <p id="closed">Closed: <span id="closed_value">true</span></p>
                 <p id="locked">Locked: <span id="locked_value">false</span></p>
@@ -76,6 +79,7 @@
                 <p id="sound">Sound: <span id="sound_value">false</span></p>
                 <p id="flash">Flash: <span id="flash_value">false</span></p>
             </section>
+
         </article>
     </main>
 
