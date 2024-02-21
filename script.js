@@ -9,6 +9,10 @@ const TIME_UNTIL_ALARM_OFF = 300;
 let buttons = document.getElementsByClassName("button")
 
 // STATE
+/*front_right_door = 0b1000
+  front_left_door =  0b0100
+  back_right_door =  0b0010
+  back_left_door =   0b0001*/
 let currently_open = 0b0000;
 let locked = false;
 let armed = false;

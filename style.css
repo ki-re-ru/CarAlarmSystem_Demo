@@ -52,6 +52,25 @@ big {font-size: 1em}
 
 blockquote {margin: 2em 5%}
 
+.grid-container {
+  display: grid;
+  grid-template-columns: 30fr 37fr 10fr;
+  grid-gap: 10px; /* Gap between grid items */
+  padding: 00px;
+}
+
+
+.grid-item {
+  background-color: #ffffff;
+  padding: 10px;
+  text-align: center;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
 
 door_button {
   display: inline-block;
@@ -274,7 +293,7 @@ ul ul ul ul {
 p {
   margin: 0 0 1em 0;
   padding: 0;
-  text-align: left;
+  text-align: center;
 }
 
 
