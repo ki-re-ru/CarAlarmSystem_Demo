@@ -6,6 +6,9 @@ const TIME_UNTIL_ARMED = 20;
 const TIME_UNTIL_SOUND_OFF = 30;
 const TIME_UNTIL_ALARM_OFF = 300;
 
+const ACTIVE_OPACITY = "1.0";
+const INACTIVE_OPACITY = "0.5";
+
 let buttons = document.getElementsByClassName("button")
 
 // STATE
@@ -153,7 +156,7 @@ function checkTimers()
     }
 }
 
-function updateStateAndTimerDisplay()
+function updateDisplay()
 {
     if(!currently_open)
     {
@@ -167,19 +170,23 @@ function updateStateAndTimerDisplay()
     if(locked)
     {
         document.getElementById("locked_value").innerText = true.toString();
+        document.getElementById("locked_img").style.opacity = ACTIVE_OPACITY;
     }
     else
     {
         document.getElementById("locked_value").innerText = false.toString();
+        document.getElementById("locked_img").style.opacity = INACTIVE_OPACITY;
     }
 
     if(armed)
     {
         document.getElementById("armed_value").innerText = true.toString();
+        document.getElementById("armed_img").style.opacity = ACTIVE_OPACITY;
     }
     else
     {
         document.getElementById("armed_value").innerText = false.toString();
+        document.getElementById("armed_img").style.opacity = INACTIVE_OPACITY;
     }
 
     if(alarm)
@@ -194,19 +201,23 @@ function updateStateAndTimerDisplay()
     if(sound)
     {
         document.getElementById("sound_value").innerText = true.toString();
+        document.getElementById("sound_img").style.opacity = ACTIVE_OPACITY;
     }
     else
     {
         document.getElementById("sound_value").innerText = false.toString();
+        document.getElementById("sound_img").style.opacity = INACTIVE_OPACITY;
     }
 
     if(flash)
     {
         document.getElementById("flash_value").innerText = true.toString();
+        document.getElementById("flash_img").style.opacity = ACTIVE_OPACITY;
     }
     else
     {
         document.getElementById("flash_value").innerText = false.toString();
+        document.getElementById("flash_img").style.opacity = INACTIVE_OPACITY;
     }
 
     document.getElementById("timer_alarm_value").innerText = timer_alarm.toString();
@@ -250,7 +261,7 @@ function handleButtonClick(event)
     }
 
     checkTimers();
-    updateStateAndTimerDisplay();
+    updateDisplay();
     storeCookies();
     loadPage();
 }
@@ -302,7 +313,7 @@ function setup()
         buttons[i].addEventListener("click", handleButtonClick);
     }
     checkTimers();
-    updateStateAndTimerDisplay();
+    updateDisplay();
 }
 
 
