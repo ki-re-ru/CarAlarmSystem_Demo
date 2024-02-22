@@ -268,11 +268,11 @@ function loadPage()
 <!--STEP-->
 function handleButtonClick(event)
 {
-    if(event.target.matches("door_button"))
+    if(event.target.dataset.door)
     {
         useDoor(event);
     }
-    else if(event.target.matches("lock_button"))
+    else if(event.target.dataset.text_lock)
     {
         toggleLock(event);
     }
@@ -315,11 +315,11 @@ function setLockButtonText(button)
 
 function setButtonText(button)
 {
-    if(button.matches("door_button"))
+    if(button.dataset.door)
     {
         setDoorButtonText(button);
     }
-    else if(button.matches("lock_button"))
+    else if(button.dataset.text_lock)
     {
         setLockButtonText(button)
     }
