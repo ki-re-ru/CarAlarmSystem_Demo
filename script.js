@@ -335,6 +335,7 @@ function initializeDisplay()
 function setup()
 {
     loadCookies();
+    loadPage();
     for (let i =0; i < buttons.length; i++)
     {
         setButtonText(buttons[i]);
