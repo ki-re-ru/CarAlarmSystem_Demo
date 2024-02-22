@@ -158,6 +158,8 @@ function checkTimers()
 
 function updateDisplay()
 {
+    document.getElementById("car_img").src = "img/" + currently_open.toString(2).padStart(4, '0') + ".png";
+
     if(!currently_open)
     {
         document.getElementById("closed_value").innerText = true.toString();
