@@ -4,10 +4,11 @@ const alarm_page = "alarm.html";
 
 const TIME_UNTIL_ARMED = 20;
 const TIME_UNTIL_SOUND_OFF = 30;
-const TIME_UNTIL_ALARM_OFF = 300;
+const TIME_UNTIL_FLASH_OFF = 300;
 
 const ACTIVE_OPACITY = "1.0";
 const INACTIVE_OPACITY = "0.5";
+const INVISIBLE_OPACITY = "0.0";
 
 let buttons = document.getElementsByClassName("button")
 
@@ -149,7 +150,7 @@ function checkTimers()
         sound = false;
     }
 
-    if(flash && timer_alarm >= TIME_UNTIL_ALARM_OFF)
+    if(flash && timer_alarm >= TIME_UNTIL_FLASH_OFF)
     {
         flash = false;
         timer_alarm = 0;
@@ -225,6 +226,24 @@ function updateDisplay()
     document.getElementById("timer_alarm_value").innerText = timer_alarm.toString();
     document.getElementById("timer_armed_value").innerText = timer_armed.toString();
     document.getElementById("total_time").innerText = total_time.toString();
+
+    if(!locked || currently_open || armed)
+    {
+        document.getElementById("timer_armed").style.opacity = INVISIBLE_OPACITY;
+    }
+    else
+    {
+        document.getElementById("timer_armed").style.opacity = ACTIVE_OPACITY;
+    }
+
+    if(flash || sound)
+    {
+        document.getElementById("timer_alarm").style.opacity = ACTIVE_OPACITY;
+    }
+    else
+    {
+        document.getElementById("timer_alarm").style.opacity = INVISIBLE_OPACITY;
+    }
 
 }
 
@@ -306,6 +325,13 @@ function setButtonText(button)
     }
 }
 
+function initializeDisplay()
+{
+    document.getElementById("timer_alarm_threshold").innerText = TIME_UNTIL_FLASH_OFF.toString();
+    document.getElementById("timer_armed_threshold").innerText = TIME_UNTIL_ARMED.toString();
+    updateDisplay();
+}
+
 function setup()
 {
     loadCookies();
@@ -315,7 +341,7 @@ function setup()
         buttons[i].addEventListener("click", handleButtonClick);
     }
     checkTimers();
-    updateDisplay();
+    initializeDisplay();
 }
 
 

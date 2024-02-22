@@ -28,10 +28,6 @@
             <div class="grid-container">
                 <div class="grid-item">
 
-                    <p id="time">Total Time: <span id="total_time">0</span></p>
-                    <p id="timer_armed">Timer Armed: <span id="timer_armed_value">0</span></p>
-                    <p id="timer_alarm">Timer Alarm: <span id="timer_alarm_value">0</span></p>
-
                     <door_button class="button" type="button" data-door=0b1000 data-text_open="Open front right door" data-text_close="Close front right door">
                         front_right_door
                     </door_button>
@@ -55,6 +51,13 @@
                     <tick_button class="button" type="button" data_text="Tick 10">
                         Tick 10
                     </tick_button>
+
+                    <br>
+                    <br>
+                    <p id="time">Total Time: <span id="total_time">0</span></p>
+                    <p id="timer_armed">Timer Armed: <span id="timer_armed_value">0</span>/<span id="timer_armed_threshold">0</span></p>
+                    <p id="timer_alarm">Timer Alarm: <span id="timer_alarm_value">0</span>/<span id="timer_alarm_threshold">0</span></p>
+
                 </div>
 
                 <div class="grid-item">
