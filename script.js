@@ -121,7 +121,7 @@ function tick(tick=10)
 {
     total_time += tick;
 
-    if(!armed && locked && !currently_open)
+    if(!alarm && !armed && locked && !currently_open)
     {
         timer_armed += tick;
     }
@@ -227,7 +227,7 @@ function updateDisplay()
     document.getElementById("timer_armed_value").innerText = timer_armed.toString();
     document.getElementById("total_time").innerText = total_time.toString();
 
-    if(!locked || currently_open || armed)
+    if(!locked || currently_open || armed || alarm)
     {
         document.getElementById("timer_armed").style.opacity = INVISIBLE_OPACITY;
     }
