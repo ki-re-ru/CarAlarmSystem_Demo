@@ -7,7 +7,7 @@ const TIME_UNTIL_SOUND_OFF = 30;
 const TIME_UNTIL_FLASH_OFF = 300;
 
 const ACTIVE_OPACITY = "1.0";
-const INACTIVE_OPACITY = "0.5";
+const INACTIVE_OPACITY = "0.3";
 const INVISIBLE_OPACITY = "0.0";
 
 let buttons = document.getElementsByClassName("button")
