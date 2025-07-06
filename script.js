@@ -87,10 +87,10 @@ function loadCookies()
     }
 }
 
-function useDoor(event)
+function useDoor(button)
 {
-    currently_open = currently_open ^ event.target.dataset.door;
-    setDoorButtonText(event.target)
+    currently_open = currently_open ^ button.dataset.door_bin;
+    setDoorButtonText(button)
 
     if(armed && !sound && !flash)
     {
@@ -102,10 +102,10 @@ function useDoor(event)
     }
 }
 
-function toggleLock(event)
+function toggleLock(text_lock)
 {
     locked = !locked;
-    setLockButtonText(event.target)
+    setLockButtonText(text_lock)
 
     if(!locked)
     {
@@ -266,15 +266,16 @@ function loadPage()
 }
 
 <!--STEP-->
-function handleButtonClick(event)
+function handleButtonClick(id)
 {
-    if(event.target.dataset.door)
+    let element = document.getElementById(id);
+    if(element.dataset.door_bin)
     {
-        useDoor(event);
+        useDoor(element);
     }
-    else if(event.target.dataset.text_lock)
+    else if(element.dataset.text_lock)
     {
-        toggleLock(event);
+        toggleLock(element);
     }
     else
     {
@@ -289,7 +290,7 @@ function handleButtonClick(event)
 
 function setDoorButtonText(button)
 {
-    const is_door_open = currently_open & button.dataset.door;
+    const is_door_open = currently_open & button.dataset.door_bin;
 
     if(is_door_open)
     {
@@ -315,7 +316,7 @@ function setLockButtonText(button)
 
 function setButtonText(button)
 {
-    if(button.dataset.door)
+    if(button.dataset.door_bin)
     {
         setDoorButtonText(button);
     }
@@ -339,7 +340,6 @@ function setup()
     for (let i =0; i < buttons.length; i++)
     {
         setButtonText(buttons[i]);
-        buttons[i].addEventListener("click", handleButtonClick);
     }
     checkTimers();
     initializeDisplay();
