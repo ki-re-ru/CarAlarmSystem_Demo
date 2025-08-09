@@ -249,19 +249,21 @@ function updateDisplay()
 
 function loadPage()
 {
-    if(armed && (window.location.pathname !== "/CarAlarmSystem_Demo/armed.html"))
+    const base = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "");
+
+    if(armed && (!window.location.pathname.endsWith(`/armed.html`)))
     {
-        window.location.href = "/CarAlarmSystem_Demo/armed.html";
+        window.location.href = `${base}/armed.html`;
     }
 
-    if(alarm && (window.location.pathname !== "/CarAlarmSystem_Demo/alarm.html"))
+    if(alarm && (!window.location.pathname.endsWith(`/alarm.html`)))
     {
-        window.location.href = "/CarAlarmSystem_Demo/alarm.html";
+        window.location.href = `${base}/alarm.html`;
     }
 
-    if(!alarm && !armed && (window.location.pathname !== "/CarAlarmSystem_Demo/index.html"))
+    if(!alarm && !armed && (!window.location.pathname.endsWith(`/index.html`)))
     {
-        window.location.href = "/CarAlarmSystem_Demo/index.html";
+        window.location.href = `${base}/index.html`;
     }
 }
 
